@@ -1,0 +1,16 @@
+[package]
+name = "libcratesio"
+version = "0.0.0"
+authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
+
+[dependencies]
+error-chain = "0.9"
+reqwest = "0.4"
+semver = "0.6"
+serde = "0.9"
+serde_derive = "0.9"
+serde_json = "0.9"
+
+[dependencies.chrono]
+features = ["serde"]
+version = "0.3"
