@@ -83,7 +83,7 @@ pub struct CrateData {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct ShowCrateData {
+pub struct CratesIO {
     pub categories: Vec<CategoryData>,
     #[serde(rename(deserialize = "crate"))]
     pub krate: CrateData,
@@ -91,21 +91,21 @@ pub struct ShowCrateData {
     pub versions: Vec<VersionData>,
 }
 
-impl ShowCrateData {
+impl CratesIO {
     fn query(krate: &str) -> reqwest::Result<reqwest::Response> {
         let url = format!("https://crates.io/api/v1/crates/{}", krate);
         reqwest::get(&url)
     }
 
-    pub fn json_data(krate: &str) -> Result<String> {
+    pub fn raw_data(krate: &str) -> Result<String> {
         let mut body = String::with_capacity(20480);
-        let mut response = ShowCrateData::query(krate)?;
+        let mut response = CratesIO::query(krate)?;
         response.read_to_string(&mut body)?;
         Ok(body)
     }
 
-    pub fn by_name(krate: &str) -> Result<ShowCrateData> {
-        let response = ShowCrateData::query(krate)?;
+    pub fn by_name(krate: &str) -> Result<CratesIO> {
+        let response = CratesIO::query(krate)?;
         let krate = serde_json::from_reader(response)?;
         Ok(krate)
     }

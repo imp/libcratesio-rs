@@ -12,6 +12,13 @@ fn basic_data() {
 #[test]
 fn raw_data() {
     let krate = Crate::json_data("requests").unwrap();
-    println!("{:?}", krate);
+    println!("{:#?}", krate);
     assert!(true);
+}
+
+#[test]
+fn json() {
+    let krate = Crate::json_pretty("requests").unwrap();
+    println!("{:#?}", krate);
+    assert!(false);
 }

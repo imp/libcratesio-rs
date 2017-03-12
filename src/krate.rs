@@ -2,7 +2,7 @@ use chrono::{DateTime, UTC};
 use semver;
 use serde_json;
 
-use api;
+use api::CratesIO;
 use errors::*;
 
 #[derive(Debug)]
@@ -24,11 +24,17 @@ pub struct Crate {
 
 impl Crate {
     pub fn json_data(name: &str) -> Result<String> {
-        api::ShowCrateData::json_data(name)
+        CratesIO::raw_data(name)
+    }
+
+    pub fn json_pretty(name: &str) -> Result<String> {
+        let json = CratesIO::raw_data(name)?;
+        let json = serde_json::from_str::<serde_json::Value>(&json)?;
+        serde_json::to_string_pretty(&json).chain_err(|| "Failed to prettify")
     }
 
     pub fn by_name(name: &str) -> Result<Self> {
-        let data = api::ShowCrateData::by_name(name)?;
+        let data = CratesIO::by_name(name)?;
         Ok(Crate {
             id: data.krate.id,
             name: data.krate.name,
