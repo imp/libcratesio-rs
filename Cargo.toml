@@ -11,6 +11,10 @@ readme = "README.md"
 categories = ["development-tools"]
 keywords = ["crates.io", "api"]
 
+[badges]
+travis-ci = { repository = "imp/libcratesio-rs" }
+gitlab = { repository = "imp/libcratesio-rs" }
+
 [dependencies]
 error-chain = "0.10"
 reqwest = "0.4"
