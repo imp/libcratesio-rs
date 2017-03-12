@@ -3,7 +3,6 @@ use std::ops::Deref;
 use std::slice::Iter;
 
 use chrono::{DateTime, UTC};
-use semver;
 use serde_json;
 
 use api::{CratesIO, VersionData};
