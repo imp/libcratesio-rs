@@ -9,7 +9,7 @@ repository = "https://gitlab.com/imp/libcratesio-rs.git"
 documentation = "https://docs.rs/libcratesio"
 readme = "README.md"
 categories = ["development-tools"]
-keywords = ["crates.io", "api"]
+keywords = ["cratesio", "api"]
 
 [badges]
 travis-ci = { repository = "imp/libcratesio-rs" }
