@@ -70,10 +70,6 @@ impl Deref for Versions {
     }
 }
 
-// impl Iterator for Versions {
-//     type Item = Version;
-//     fn
-// }
 #[derive(Debug)]
 pub struct Crate {
     pub id: String,
