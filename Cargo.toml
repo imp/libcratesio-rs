@@ -2,6 +2,14 @@
 name = "libcratesio"
 version = "0.0.0"
 authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
+description = "Library for accessing crates.io API"
+license = "Apache-2.0/MIT"
+homepage = "https://gitlab.com/imp/libcratesio-rs"
+repository = "https://gitlab.com/imp/libcratesio-rs.git"
+documentation = "https://docs.rs/libcratesio"
+readme = "README.md"
+categories = []
+keywords = ["crates.io", "api"]
 
 [dependencies]
 error-chain = "0.10"
