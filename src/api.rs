@@ -3,7 +3,6 @@ use std::collections::HashMap;
 
 use chrono::{DateTime, UTC};
 use reqwest;
-use serde::Deserialize;
 use serde_json;
 
 use errors::*;

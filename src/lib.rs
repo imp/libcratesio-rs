@@ -4,7 +4,6 @@ extern crate error_chain;
 extern crate chrono;
 extern crate reqwest;
 extern crate semver;
-#[macro_use]
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;

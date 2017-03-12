@@ -17,8 +17,10 @@ fn raw_data() {
 }
 
 #[test]
-fn json() {
-    let krate = Crate::json_pretty("requests").unwrap();
-    println!("{:#?}", krate);
-    assert!(false);
+fn versions_iter() {
+    let krate = Crate::by_name("requests").unwrap();
+    for ver in krate.versions.iter() {
+        println!("{:?}", ver);
+    }
+    assert!(true);
 }
