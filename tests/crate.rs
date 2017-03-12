@@ -1,6 +1,6 @@
 extern crate libcratesio;
 
-use libcratesio::Crate;
+use libcratesio::{Crate, Error};
 
 #[test]
 fn basic_data() {
@@ -22,5 +22,12 @@ fn versions_iter() {
     for ver in krate.versions.iter() {
         println!("{:?}", ver);
     }
+    assert!(true);
+}
+
+#[test]
+fn error() {
+    let err = Crate::by_name("xxx").unwrap_err();
+    println!("{:?}", err);
     assert!(true);
 }
