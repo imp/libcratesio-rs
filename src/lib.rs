@@ -12,4 +12,5 @@ mod api;
 mod errors;
 mod krate;
 
+pub use errors::Error;
 pub use krate::Crate;
