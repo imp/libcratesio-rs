@@ -5,7 +5,7 @@ use std::slice::Iter;
 use chrono::{DateTime, UTC};
 use serde_json;
 
-use api::{CratesIO, VersionData};
+use api::{CratesIO, ApiResponse, VersionData};
 use errors::*;
 
 #[derive(Debug)]
@@ -46,7 +46,7 @@ impl Versions {
         None
     }
 
-    fn from_crate_data(data: &CratesIO) -> Self {
+    fn from_crate_data(data: &ApiResponse) -> Self {
         let mut versions = Vec::new();
         if let Some(vers) = data.krate.versions.as_ref() {
             for id in vers {
@@ -89,18 +89,8 @@ pub struct Crate {
 }
 
 impl Crate {
-    pub fn json_data(name: &str) -> Result<String> {
-        CratesIO::raw_data(name)
-    }
-
-    pub fn json_pretty(name: &str) -> Result<String> {
-        let json = CratesIO::raw_data(name)?;
-        let json = serde_json::from_str::<serde_json::Value>(&json)?;
-        serde_json::to_string_pretty(&json).chain_err(|| "Failed to prettify")
-    }
-
     pub fn by_name(name: &str) -> Result<Self> {
-        let data = CratesIO::by_name(name)?;
+        let data = CratesIO::query(name)?.as_data()?;
         let versions = Versions::from_crate_data(&data);
         Ok(Crate {
                id: data.krate.id,

@@ -1,6 +1,6 @@
 extern crate libcratesio;
 
-use libcratesio::{Crate, Error};
+use libcratesio::{CratesIO, Crate, Error};
 
 #[test]
 fn basic_data() {
@@ -11,7 +11,7 @@ fn basic_data() {
 
 #[test]
 fn raw_data() {
-    let krate = Crate::json_data("requests").unwrap();
+    let krate = CratesIO::query("requests").unwrap().as_json().unwrap();
     println!("{:#?}", krate);
     assert!(true);
 }

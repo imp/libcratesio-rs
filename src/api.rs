@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 use chrono::{DateTime, UTC};
 use reqwest;
-use serde_json;
+use serde_json::{self, Value};
 
 use errors::*;
 
@@ -82,7 +82,7 @@ pub struct CrateData {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct CratesIO {
+pub struct ApiResponse {
     pub categories: Vec<CategoryData>,
     #[serde(rename(deserialize = "crate"))]
     pub krate: CrateData,
@@ -90,22 +90,34 @@ pub struct CratesIO {
     pub versions: Vec<VersionData>,
 }
 
+#[derive(Debug)]
+pub struct CratesIO {
+    response: reqwest::Response,
+    data: String,
+}
+
 impl CratesIO {
-    fn query(krate: &str) -> reqwest::Result<reqwest::Response> {
+    pub fn query(krate: &str) -> Result<Self> {
         let url = format!("https://crates.io/api/v1/crates/{}", krate);
-        reqwest::get(&url)
-    }
-
-    pub fn raw_data(krate: &str) -> Result<String> {
+        let mut response = reqwest::get(&url)?;
         let mut body = String::with_capacity(20480);
-        let mut response = CratesIO::query(krate)?;
         response.read_to_string(&mut body)?;
-        Ok(body)
+        Ok(CratesIO {
+               response: response,
+               data: body,
+           })
     }
 
-    pub fn by_name(krate: &str) -> Result<CratesIO> {
-        let response = CratesIO::query(krate)?;
-        let krate = serde_json::from_reader(response)?;
-        Ok(krate)
+    pub fn raw_data(&self) -> &str {
+        &self.data
+    }
+
+    pub fn as_json(&self) -> Result<Value> {
+        serde_json::from_str(&self.data).chain_err(|| "Failed to parse JSON")
+        // serde_json::to_string_pretty(&json).chain_err(|| "Failed to prettify")
+    }
+
+    pub fn as_data(&self) -> Result<ApiResponse> {
+        serde_json::from_str(&self.data).chain_err(|| "Failed to parse JSON")
     }
 }
