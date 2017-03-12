@@ -14,4 +14,4 @@ mod krate;
 
 pub use api::CratesIO;
 pub use errors::Error;
-pub use krate::Crate;
+pub use krate::{Crate, Version};
