@@ -21,7 +21,7 @@ reqwest = "0.4"
 serde = "0.9"
 serde_derive = "0.9"
 #serde_json = "0.9"
-serde_json = { git = "https://github.com/imp/json.git", branch = "value_pretty_print" }
+serde_json = { git = "https://github.com/serde-rs/json.git" }
 
 [dependencies.chrono]
 features = ["serde"]
