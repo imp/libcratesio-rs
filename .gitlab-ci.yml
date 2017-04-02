@@ -10,11 +10,11 @@ stages:
   - test
   - deploy
 
-.stable:cargo:
+stable:cargo:
   image: rustdocker/rust:stable
   <<: *cargo_test
 
-.beta:cargo:
+beta:cargo:
   image: rustdocker/rust:beta
   <<: *cargo_test
 
