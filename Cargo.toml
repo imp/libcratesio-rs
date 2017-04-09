@@ -20,8 +20,8 @@ error-chain = "0.10"
 reqwest = "0.5"
 serde = "0.9"
 serde_derive = "0.9"
-#serde_json = "0.9"
-serde_json = { git = "https://github.com/serde-rs/json.git" }
+serde_json = "0.9"
+#serde_json = { git = "https://github.com/serde-rs/json.git" }
 
 [dependencies.chrono]
 features = ["serde"]
