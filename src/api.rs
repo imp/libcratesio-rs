@@ -93,7 +93,7 @@ pub struct ApiResponse {
 #[derive(Debug)]
 pub struct CratesIO {
     response: reqwest::Response,
-    data: String,
+    body: String,
 }
 
 impl CratesIO {
@@ -104,20 +104,20 @@ impl CratesIO {
         response.read_to_string(&mut body)?;
         Ok(CratesIO {
                response: response,
-               data: body,
+               body: body,
            })
     }
 
     pub fn raw_data(&self) -> &str {
-        &self.data
+        &self.body
     }
 
     pub fn as_json(&self) -> Result<Value> {
-        serde_json::from_str(&self.data).chain_err(|| "Failed to parse JSON")
+        serde_json::from_str(&self.body).chain_err(|| "Failed to parse JSON")
         // serde_json::to_string_pretty(&json).chain_err(|| "Failed to prettify")
     }
 
     pub fn as_data(&self) -> Result<ApiResponse> {
-        serde_json::from_str(&self.data).chain_err(|| "Failed to parse JSON")
+        serde_json::from_str(&self.body).chain_err(|| "Failed to parse JSON")
     }
 }
