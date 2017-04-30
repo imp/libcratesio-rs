@@ -1,11 +1,38 @@
 use std::io::Read;
 use std::collections::HashMap;
+use std::str::FromStr;
 
 use chrono::{DateTime, UTC};
 use reqwest;
 use serde_json::{self, Value};
 
 use errors::*;
+
+#[derive(Debug, Deserialize)]
+pub struct Errors {
+    pub detail: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ErrorResponse {
+    pub errors: Vec<Errors>,
+}
+
+impl ErrorResponse {
+    pub fn detail(&self) -> &str {
+        self.errors
+            .get(0)
+            .map(|x| x.detail.as_str())
+            .unwrap_or("")
+    }
+}
+
+impl FromStr for ErrorResponse {
+    type Err = Error;
+    fn from_str(s: &str) -> ::std::result::Result<Self, Self::Err> {
+        serde_json::from_str(s).chain_err(|| "Failed to parse JSON")
+    }
+}
 
 #[derive(Debug, Deserialize)]
 pub struct BadgeData {
@@ -90,6 +117,13 @@ pub struct ApiResponse {
     pub versions: Vec<VersionData>,
 }
 
+impl FromStr for ApiResponse {
+    type Err = Error;
+    fn from_str(s: &str) -> ::std::result::Result<Self, Self::Err> {
+        serde_json::from_str(s).chain_err(|| "Failed to parse JSON")
+    }
+}
+
 #[derive(Debug)]
 pub struct CratesIO {
     response: reqwest::Response,
@@ -118,6 +152,12 @@ impl CratesIO {
     }
 
     pub fn as_data(&self) -> Result<ApiResponse> {
-        serde_json::from_str(&self.body).chain_err(|| "Failed to parse JSON")
+        if *self.response.status() == reqwest::StatusCode::Ok {
+            self.body.parse::<ApiResponse>()
+        } else {
+            self.body
+                .parse::<ErrorResponse>()
+                .and_then(|er| Err(ErrorKind::CratesIOError(er).into()))
+        }
     }
 }
