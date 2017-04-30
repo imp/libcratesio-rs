@@ -4,21 +4,24 @@ use libcratesio::{CratesIO, Crate, Error, ErrorKind};
 
 #[test]
 fn basic_data() {
-    let krate = Crate::by_name("requests").unwrap();
+    let krate = Crate::by_name("libcratesio").unwrap();
     println!("{:?}", krate);
-    assert_eq!(krate.name, "requests");
+    assert_eq!(krate.name, "libcratesio");
 }
 
 #[test]
 fn raw_data() {
-    let krate = CratesIO::query("requests").unwrap().as_json().unwrap();
+    let krate = CratesIO::query("libcratesio")
+        .unwrap()
+        .as_json()
+        .unwrap();
     println!("{:#?}", krate);
     assert!(true);
 }
 
 #[test]
 fn versions_iter() {
-    let krate = Crate::by_name("requests").unwrap();
+    let krate = Crate::by_name("libcratesio").unwrap();
     for ver in krate.versions.iter() {
         println!("{:?}", ver);
     }
