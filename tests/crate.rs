@@ -1,6 +1,6 @@
 extern crate libcratesio;
 
-use libcratesio::{CratesIO, Crate, Error};
+use libcratesio::{CratesIO, Crate, Error, ErrorKind};
 
 #[test]
 fn basic_data() {
@@ -27,7 +27,12 @@ fn versions_iter() {
 
 #[test]
 fn error() {
-    let err = Crate::by_name("xxx").unwrap_err();
-    println!("{:?}", err);
-    assert!(true);
+    let no_such_crate = Crate::by_name("no_such_crate");
+    assert!(no_such_crate.is_err());
+    let err = no_such_crate.unwrap_err();
+    if let Error(ErrorKind::CratesIOError(response), _) = err {
+        assert_eq!(response.detail(), "Not Found");
+    } else {
+        assert!(false);
+    }
 }
