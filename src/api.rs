@@ -20,10 +20,7 @@ pub struct ErrorResponse {
 
 impl ErrorResponse {
     pub fn detail(&self) -> &str {
-        self.errors
-            .get(0)
-            .map(|x| x.detail.as_str())
-            .unwrap_or("")
+        self.errors.get(0).map(|x| x.detail.as_str()).unwrap_or("")
     }
 }
 

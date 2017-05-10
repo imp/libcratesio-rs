@@ -11,10 +11,7 @@ fn basic_data() {
 
 #[test]
 fn raw_data() {
-    let krate = CratesIO::query("libcratesio")
-        .unwrap()
-        .as_json()
-        .unwrap();
+    let krate = CratesIO::query("libcratesio").unwrap().as_json().unwrap();
     println!("{:#?}", krate);
     assert!(true);
 }
