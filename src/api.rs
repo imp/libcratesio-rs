@@ -33,8 +33,8 @@ impl FromStr for ErrorResponse {
 
 #[derive(Debug, Deserialize)]
 pub struct BadgeData {
+    pub attributes: HashMap<String, Option<String>>,
     pub badge_type: String,
-    pub attributes: HashMap<String, String>,
 }
 
 #[derive(Debug, Deserialize)]
