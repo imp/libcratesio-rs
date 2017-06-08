@@ -91,7 +91,7 @@ pub struct Crate {
 impl Crate {
     pub fn from_apiresponse(data: &ApiResponse) -> Result<Self> {
         let versions = Versions::from_crate_data(data);
-        let keywords = data.krate.keywords.clone().unwrap_or(Vec::new());
+        let keywords = data.krate.keywords.clone().unwrap_or_default();
         Ok(Crate {
                id: data.krate.id.clone(),
                name: data.krate.name.clone(),
