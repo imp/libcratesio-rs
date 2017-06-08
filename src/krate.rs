@@ -85,11 +85,13 @@ pub struct Crate {
     pub repository: Option<String>,
     pub max_upload_size: Option<i32>,
     pub versions: Versions,
+    pub keywords: Vec<String>,
 }
 
 impl Crate {
     pub fn from_apiresponse(data: &ApiResponse) -> Result<Self> {
         let versions = Versions::from_crate_data(data);
+        let keywords = data.krate.keywords.clone().unwrap_or(Vec::new());
         Ok(Crate {
                id: data.krate.id.clone(),
                name: data.krate.name.clone(),
@@ -105,6 +107,7 @@ impl Crate {
                repository: data.krate.repository.clone(),
                max_upload_size: None,
                versions: versions,
+               keywords: keywords,
            })
     }
 
