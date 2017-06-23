@@ -2,7 +2,7 @@ use std::io::Read;
 use std::collections::HashMap;
 use std::str::FromStr;
 
-use chrono::{DateTime, UTC};
+use chrono::{DateTime, Utc};
 use reqwest;
 use serde_json::{self, Value};
 
@@ -41,7 +41,7 @@ pub struct BadgeData {
 pub struct CategoryData {
     pub category: String,
     pub crates_cnt: i32,
-    pub created_at: DateTime<UTC>,
+    pub created_at: DateTime<Utc>,
     pub description: String,
     pub id: String,
     pub slug: String,
@@ -58,7 +58,7 @@ pub struct CrateLinks {
 #[derive(Debug, Deserialize)]
 pub struct KeywordData {
     pub crates_cnt: i32,
-    pub created_at: DateTime<UTC>,
+    pub created_at: DateTime<Utc>,
     pub id: String,
     pub keyword: String,
 }
@@ -74,14 +74,14 @@ pub struct VersionLinks {
 pub struct VersionData {
     #[serde(rename(deserialize = "crate"))]
     pub krate: String,
-    pub created_at: DateTime<UTC>,
+    pub created_at: DateTime<Utc>,
     pub dl_path: String,
     pub downloads: i32,
     pub features: HashMap<String, Vec<String>>,
     pub id: i32,
     pub links: VersionLinks,
     pub num: String, // XXX should be semver::Version
-    pub updated_at: DateTime<UTC>,
+    pub updated_at: DateTime<Utc>,
     pub yanked: bool,
 }
 
@@ -89,7 +89,7 @@ pub struct VersionData {
 pub struct CrateData {
     pub badges: Option<Vec<BadgeData>>,
     pub categories: Option<Vec<String>>,
-    pub created_at: DateTime<UTC>,
+    pub created_at: DateTime<Utc>,
     pub description: Option<String>,
     pub documentation: Option<String>,
     pub downloads: i32,
@@ -102,7 +102,7 @@ pub struct CrateData {
     pub max_version: String,
     pub name: String,
     pub repository: Option<String>,
-    pub updated_at: DateTime<UTC>,
+    pub updated_at: DateTime<Utc>,
     pub versions: Option<Vec<i32>>,
 }
 

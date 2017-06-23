@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::ops::Deref;
 use std::slice::Iter;
 
-use chrono::{DateTime, UTC};
+use chrono::{DateTime, Utc};
 
 use api::{CratesIO, ApiResponse, VersionData};
 use errors::*;
@@ -11,8 +11,8 @@ use errors::*;
 pub struct Version {
     pub num: String, // XXX should be semver::Version
     pub downloads: i32,
-    pub created_at: DateTime<UTC>,
-    pub updated_at: DateTime<UTC>,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
     pub features: HashMap<String, Vec<String>>,
     pub yanked: bool,
 }
@@ -73,8 +73,8 @@ impl Deref for Versions {
 pub struct Crate {
     pub id: String,
     pub name: String,
-    pub updated_at: DateTime<UTC>,
-    pub created_at: DateTime<UTC>,
+    pub updated_at: DateTime<Utc>,
+    pub created_at: DateTime<Utc>,
     pub downloads: i32,
     pub max_version: String, // XXX Should be semver::Version
     pub description: Option<String>,
