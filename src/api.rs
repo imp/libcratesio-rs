@@ -135,9 +135,9 @@ impl CratesIO {
         let mut body = String::with_capacity(20480);
         response.read_to_string(&mut body)?;
         Ok(CratesIO {
-               response: response,
-               body: body,
-           })
+            response: response,
+            body: body,
+        })
     }
 
     pub fn raw_data(&self) -> &str {

@@ -93,22 +93,22 @@ impl Crate {
         let versions = Versions::from_crate_data(data);
         let keywords = data.krate.keywords.clone().unwrap_or_default();
         Ok(Crate {
-               id: data.krate.id.clone(),
-               name: data.krate.name.clone(),
-               updated_at: data.krate.updated_at,
-               created_at: data.krate.created_at,
-               downloads: data.krate.downloads,
-               max_version: data.krate.max_version.clone(),
-               description: data.krate.description.clone(),
-               homepage: data.krate.homepage.clone(),
-               documentation: data.krate.documentation.clone(),
-               readme: None,
-               license: data.krate.license.clone(),
-               repository: data.krate.repository.clone(),
-               max_upload_size: None,
-               versions: versions,
-               keywords: keywords,
-           })
+            id: data.krate.id.clone(),
+            name: data.krate.name.clone(),
+            updated_at: data.krate.updated_at,
+            created_at: data.krate.created_at,
+            downloads: data.krate.downloads,
+            max_version: data.krate.max_version.clone(),
+            description: data.krate.description.clone(),
+            homepage: data.krate.homepage.clone(),
+            documentation: data.krate.documentation.clone(),
+            readme: None,
+            license: data.krate.license.clone(),
+            repository: data.krate.repository.clone(),
+            max_upload_size: None,
+            versions: versions,
+            keywords: keywords,
+        })
     }
 
     pub fn by_name(name: &str) -> Result<Self> {
