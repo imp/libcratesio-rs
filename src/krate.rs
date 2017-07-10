@@ -15,6 +15,7 @@ pub struct Version {
     pub updated_at: DateTime<Utc>,
     pub features: HashMap<String, Vec<String>>,
     pub yanked: bool,
+    pub license: Option<String>,
 }
 
 impl Version {
@@ -26,6 +27,7 @@ impl Version {
             updated_at: data.updated_at,
             features: data.features.clone(),
             yanked: data.yanked,
+            license: data.license.clone(),
         }
     }
 }

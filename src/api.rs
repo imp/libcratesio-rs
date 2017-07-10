@@ -85,6 +85,7 @@ pub struct VersionData {
     pub num: String, // XXX should be semver::Version
     pub updated_at: DateTime<Utc>,
     pub yanked: bool,
+    pub license: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
