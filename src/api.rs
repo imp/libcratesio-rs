@@ -33,8 +33,8 @@ impl FromStr for ErrorResponse {
 
 #[derive(Debug, Deserialize)]
 pub struct BadgeData {
-    pub attributes: HashMap<String, Option<String>>,
     pub badge_type: String,
+    pub attributes: HashMap<String, Option<String>>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -59,54 +59,54 @@ pub struct CrateLinks {
 
 #[derive(Debug, Deserialize)]
 pub struct KeywordData {
-    pub crates_cnt: i32,
-    pub created_at: DateTime<Utc>,
     pub id: String,
     pub keyword: String,
+    pub created_at: DateTime<Utc>,
+    pub crates_cnt: i32,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct VersionLinks {
-    pub authors: String,
     pub dependencies: String,
     pub version_downloads: String,
+    pub authors: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct VersionData {
+    pub id: i32,
     #[serde(rename(deserialize = "crate"))]
     pub krate: String,
-    pub created_at: DateTime<Utc>,
+    pub num: String, // XXX should be semver::Version
     pub dl_path: String,
+    pub updated_at: DateTime<Utc>,
+    pub created_at: DateTime<Utc>,
     pub downloads: i32,
     pub features: HashMap<String, Vec<String>>,
-    pub id: i32,
-    pub links: VersionLinks,
-    pub num: String, // XXX should be semver::Version
-    pub updated_at: DateTime<Utc>,
     pub yanked: bool,
     pub license: Option<String>,
+    pub links: VersionLinks,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct CrateData {
-    pub badges: Option<Vec<BadgeData>>,
-    pub categories: Option<Vec<String>>,
-    pub created_at: DateTime<Utc>,
-    pub description: Option<String>,
-    pub documentation: Option<String>,
-    pub downloads: i32,
-    pub exact_match: bool,
-    pub homepage: Option<String>,
     pub id: String,
-    pub keywords: Option<Vec<String>>,
-    pub license: Option<String>,
-    pub links: CrateLinks,
-    pub max_version: String,
     pub name: String,
-    pub repository: Option<String>,
     pub updated_at: DateTime<Utc>,
     pub versions: Option<Vec<i32>>,
+    pub keywords: Option<Vec<String>>,
+    pub categories: Option<Vec<String>>,
+    pub badges: Option<Vec<BadgeData>>,
+    pub created_at: DateTime<Utc>,
+    pub downloads: i32,
+    pub max_version: String,
+    pub description: Option<String>,
+    pub homepage: Option<String>,
+    pub documentation: Option<String>,
+    pub license: Option<String>,
+    pub repository: Option<String>,
+    pub links: CrateLinks,
+    pub exact_match: bool,
 }
 
 #[derive(Debug, Deserialize)]
