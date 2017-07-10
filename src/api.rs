@@ -53,6 +53,8 @@ pub struct CrateLinks {
     pub versions: Option<String>,
     pub owners: Option<String>,
     pub reverse_dependencies: String,
+    pub owner_team: Option<String>,
+    pub owner_user: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
