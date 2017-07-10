@@ -13,7 +13,7 @@ keywords = ["cratesio", "api"]
 
 [badges]
 travis-ci = { repository = "imp/libcratesio-rs" }
-gitlab = { repository = "imp/libcratesio-rs" }
+git-lab = { repository = "imp/libcratesio-rs" }
 
 [dependencies]
 error-chain = "0.10"
