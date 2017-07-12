@@ -153,7 +153,7 @@ impl CratesIO {
     }
 
     pub fn as_data(&self) -> Result<ApiResponse> {
-        if *self.response.status() == reqwest::StatusCode::Ok {
+        if self.response.status() == reqwest::StatusCode::Ok {
             self.body.parse::<ApiResponse>()
         } else {
             self.body
